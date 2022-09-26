@@ -2,6 +2,7 @@ package manageiq
 
 import (
 	"bytes"
+	"crypto/tls"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -47,13 +48,19 @@ type Client struct {
 type ClientParams struct {
 	BaseURL  string
 	LogLevel LogLevel
+	Insecure bool
 }
 
 func NewClient(authenticator Authenticator, param ClientParams) *Client {
+	tr := &http.Transport{
+		TLSClientConfig: &tls.Config{InsecureSkipVerify: param.Insecure},
+	}
+
 	return &Client{
 		Authenticator: authenticator,
 		HTTPClient: &http.Client{
-			Timeout: time.Minute,
+			Timeout:   time.Minute,
+			Transport: tr,
 		},
 	}
 }
