@@ -47,7 +47,10 @@ func (a *BasicAuthenticator) Validate() error {
 }
 
 func (a *BasicAuthenticator) GetBaseURL() string {
-	return a.BaseURL
+	if a.BaseURL != "" {
+		return a.BaseURL
+	}
+	return defaultBaseURL
 }
 
 func (a *BasicAuthenticator) Authenticate(request *http.Request) error {

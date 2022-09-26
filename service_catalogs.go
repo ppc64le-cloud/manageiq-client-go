@@ -2,7 +2,6 @@ package manageiq
 
 import (
 	"encoding/json"
-	"github.com/davecgh/go-spew/spew"
 )
 
 type ServiceCatalogs struct {
@@ -28,6 +27,5 @@ func (c *Client) GetServiceCatalogs() (*ServiceCatalogs, error) {
 	if err := json.Unmarshal(resp.RawResult, &s); err != nil {
 		return nil, err
 	}
-	spew.Dump(resp.Result)
 	return s, nil
 }
