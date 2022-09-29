@@ -46,11 +46,13 @@ type Action struct {
 
 type Resource struct {
 	Href string `json:"href"`
+	ID   string `json:"id"`
+	Name string `json:"name"`
 }
 
 func (c *Client) GetGroups() (*Groups, error) {
 	builder := NewRequestBuilder(GET)
-	_, err := builder.ResolveRequestURL(c.Authenticator.GetBaseURL(), "/groups", nil)
+	_, err := builder.ResolveRequestURL(c.Authenticator.GetBaseURL(), "/groups", nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -72,7 +74,7 @@ func (c *Client) GetGroups() (*Groups, error) {
 
 func (c *Client) GetGroup(id string) (*Group, error) {
 	builder := NewRequestBuilder(GET)
-	_, err := builder.ResolveRequestURL(c.Authenticator.GetBaseURL(), "/groups/"+id, nil)
+	_, err := builder.ResolveRequestURL(c.Authenticator.GetBaseURL(), "/groups/"+id, nil, nil)
 	if err != nil {
 		return nil, err
 	}
