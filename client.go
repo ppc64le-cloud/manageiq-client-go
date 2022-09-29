@@ -71,20 +71,6 @@ type errorResponse struct {
 	Data    interface{}
 }
 
-func (c *Client) GetServices() (*DetailedResponse, error) {
-	builder := NewRequestBuilder(GET)
-	_, err := builder.ResolveRequestURL(c.Authenticator.GetBaseURL(), "/services", nil)
-	if err != nil {
-		return nil, err
-	}
-	req, err := builder.Build()
-	if err != nil {
-		return nil, err
-	}
-
-	return c.sendRequest(req, nil)
-}
-
 func (c *Client) sendRequest(req *http.Request, v interface{}) (*DetailedResponse, error) {
 	if err := c.Authenticator.Authenticate(req); err != nil {
 		return nil, err

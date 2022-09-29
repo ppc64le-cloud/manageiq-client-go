@@ -10,7 +10,7 @@ type ServiceCatalogs struct {
 
 func (c *Client) GetServiceCatalogs() (*ServiceCatalogs, error) {
 	builder := NewRequestBuilder(GET)
-	_, err := builder.ResolveRequestURL(c.Authenticator.GetBaseURL(), "/service_catalogs", nil)
+	_, err := builder.ResolveRequestURL(c.Authenticator.GetBaseURL(), "/service_catalogs", nil, nil)
 	if err != nil {
 		return nil, err
 	}

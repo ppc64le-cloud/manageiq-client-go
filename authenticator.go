@@ -19,6 +19,7 @@ const (
 
 	POST = "POST"
 	GET  = "GET"
+	PUT  = "PUT"
 
 	ERRORMSG_SERVICE_URL_MISSING = "service GetBaseURL is empty"
 	ERRORMSG_SERVICE_URL_INVALID = "error parsing service GetBaseURL: %s"
@@ -116,7 +117,7 @@ type TokenResponse struct {
 
 func (a *BasicAuthenticator) GetToken() (*TokenResponse, error) {
 	builder := NewRequestBuilder(GET)
-	_, err := builder.ResolveRequestURL(a.GetBaseURL(), "/auth", nil)
+	_, err := builder.ResolveRequestURL(a.GetBaseURL(), "/auth", nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -269,7 +270,7 @@ func (requestBuilder *RequestBuilder) SetBodyContentJSON(bodyContent interface{}
 	return requestBuilder, err
 }
 
-func (requestBuilder *RequestBuilder) ResolveRequestURL(serviceURL string, path string, pathParams map[string]string) (*RequestBuilder, error) {
+func (requestBuilder *RequestBuilder) ResolveRequestURL(serviceURL string, path string, pathParams map[string]string, queries url.Values) (*RequestBuilder, error) {
 	if serviceURL == "" {
 		return requestBuilder, fmt.Errorf(ERRORMSG_SERVICE_URL_MISSING)
 	}
@@ -307,6 +308,10 @@ func (requestBuilder *RequestBuilder) ResolveRequestURL(serviceURL string, path 
 		}
 
 		urlString += path
+	}
+
+	if len(queries) > 0 {
+		urlString = urlString + "?" + queries.Encode()
 	}
 
 	var URL *url.URL
