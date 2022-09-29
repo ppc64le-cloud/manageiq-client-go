@@ -22,6 +22,9 @@ jobs:
 
       - name: Verify no changes from go fmt and go mod tidy
         run: |
-          if [ -n "$(git status --porcelain)" ]; then
-            exit 1
+          echo "==> Checking if any change in the codebase..."
+          git diff --exit-code; if [ $$? -eq 1 ]; then \
+          echo "Changes found in the repository"; \
+          echo "Please fix the errors and resubmit."; \
+          exit 1; \
           fi
