@@ -11,7 +11,12 @@ type Services struct {
 
 type Service struct {
 	MangeIQListResource
-	VMs []VM `json:"vms"`
+	CreatedAt      string `json:"created_at"`
+	UpdatedAt      string `json:"updated_at"`
+	Retired        bool   `json:"retired"`
+	RetiresOn      string `json:"retires_on"`
+	LifecycleState string `json:"lifecycle_state"`
+	VMs            []VM   `json:"vms"`
 }
 
 type VM struct {
