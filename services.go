@@ -29,6 +29,10 @@ type VM struct {
 	IPAddresses  []string `json:"ipaddresses"`
 	Name         string   `json:"name"`
 	Vendor       string   `json:"vendor"`
+	// ID for the vm in the powervs(backend)
+	UIDEMS string `json:"uid_ems"`
+	// Power state of the vm
+	RawPowerState string `json:"raw_power_state"`
 }
 
 func (c *Client) ListServices(queries url.Values) (*Services, error) {
