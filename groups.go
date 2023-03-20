@@ -6,6 +6,7 @@ import (
 
 type MangeIQListResource struct {
 	Name      string     `json:"name"`
+	ID        string     `json:"id"`
 	Count     float64    `json:"count"`
 	SubCount  float64    `json:"subcount"`
 	Pages     float64    `json:"pages"`
